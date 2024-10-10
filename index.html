@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: rgb(37, 37, 53); font-family: Manrope, sans-serif; font-weight: 800;">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <title>Frontend Mentor | Advice generator app</title>
+
+
+  <style>
+    .attribution { 
+      position: fixed;
+      bottom: 0px;
+      font-size: 11px; 
+      text-align: center; 
+    }
+    .attribution a { 
+      color: hsl(228, 45%, 44%); 
+    }
+    body {
+      height: 100vh; 
+      display: flex;
+      justify-content: center; 
+      align-items: center; 
+      background-color: rgb(37, 37, 53);
+    }
+    #main-div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(52, 52, 69);
+      border-radius: 10px;
+      width: 440px;
+      height: 36vh;
+    }
+    #header {
+      color: rgb(0, 202, 121);
+      letter-spacing: 3px;
+      font-size: 10px; 
+      margin-bottom: 23px;
+    }
+    #advice {
+      color: white;
+     margin-bottom: 0;
+     margin-top: 10px;
+     height: 80px;
+     font-size: 17px;
+     width: 350px;
+     text-align: center;
+    }
+    #dice{
+      width: 15px;
+      cursor: pointer;
+    }
+    #image-div {
+      position: absolute;
+      top: 66vh;
+      height: 40px;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-width: 2px;
+      border-radius: 1000px;
+      background-color: rgb(0, 202, 121);
+    }
+    #splitter {
+      width: 350px;
+    }
+    #splitter-div {
+      margin-top: 25px;
+    }
+    #advice-div {
+      display: flex;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="main-div">
+    <header id="header">
+      LET ME GIVE YOU SOME ADVICE
+    </header>
+
+   <div id="advice-div">
+    <p id="advice"></p>
+   </div>
+
+    <div id="splitter-div">
+      <img id="splitter" src="images/pattern-divider-desktop.svg">
+    </div>
+    <div id="image-div">
+      <img id="dice" src="images/icon-dice.svg">
+    </div> 
+  </div>
+  
+  <script>
+    let header = document.querySelector("#header")
+    let advice = document.querySelector("#advice")
+    let dice = document.querySelector("#dice")
+    function func() {
+      fetch("https://api.adviceslip.com/advice", {
+           cache: "no-cache"
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        header.textContent = "ADVICE" + " #" + data.slip.id
+        advice.textContent = "''" +  data.slip.advice + "''"
+      })
+      
+    }
+    dice.addEventListener("click", func)
+  </script>
+  
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+</body>
+</html>
